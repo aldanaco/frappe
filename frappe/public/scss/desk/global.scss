@@ -460,6 +460,7 @@ kbd {
 		}
 	}
 
+	
 	.standard-sidebar-item {
 		@include flex(flex, null, center, null);
 		@include get_textstyle("base", "regular");
@@ -470,11 +471,38 @@ kbd {
 		cursor: pointer;
 
 		.sidebar-item-label {
-			// https://css-tricks.com/flexbox-truncated-text/
+			position: relative; /* Allows positioning of the pseudo-element */
 			min-width: 0;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
+			padding: 7px 13px; /* Padding for spacing */
+			background-color: #ffffff; /* Background color for the item */
+			// border: 1px solid #dcdcdc; /* Light border */
+			border-radius: 15px; /* Rounded corners */
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+			transition: box-shadow 0.3s ease; /* Transition for box-shadow */
+		}
+		
+		.sidebar-item-label:hover {
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+			transform: translateY(-2px); /* Lift effect on hover */
+		}
+		
+		.sidebar-item-label::after {
+			content: ''; /* Necessary for pseudo-element */
+			position: absolute; /* Position it relative to the parent */
+			left: 0; /* Start at the left edge */
+			bottom: 0; /* Position at the bottom */
+			width: 100%; /* Full width of the parent */
+			height: 2px; /* Height of the underline */
+			background-color: #A452C1; /* Color of the underline */
+			transform: scaleX(0); /* Initially hidden */
+			transition: transform 0.3s ease; /* Smooth transition */
+		}
+		
+		.sidebar-item-label:hover::after {
+			transform: scaleX(1); /* Expand the underline on hover */
 		}
 
 		&:focus-within {
